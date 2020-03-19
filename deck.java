@@ -42,7 +42,21 @@ public class deck {
     }
 
     public ArrayList<rummyCard> deal(int numToDeal) {
-
+        int dealNumber = numToDeal -1; //Account for 0 index. If I want to deal 7 cards I gotta tell the program 6 because it will start from 0 and count to 6 which = 7.
+        int deckLeft = deckOfCards.size(); //Keep track of how many cards left in the deck
+        ArrayList<rummyCard> dealtCards = new ArrayList<rummyCard>(); //The cards that we are going to return to the player
+        if (dealNumber <= deckLeft){
+            for (int i = 0; i <= dealNumber; i++){
+                dealtCards.add(deckOfCards.get(0)); //get the first element of the deck and put it into dealtCards. We always want the first element as we are deleting this element from the deck as soon as we deal it.
+                System.out.println("Dealt " + dealtCards.get(i).toString());
+                deckOfCards.remove(0); //Remove the first element of the deck.
+                deckLeft = deckLeft -1;
+            }
+        } else {
+            //Think of a way to say "hey we cant deal anymore cards boss, you got too many players homie"
+        }
+        return dealtCards; 
+        
     }
 
     public void shuffle(ArrayList<rummyCard> neatDeck) {
@@ -56,6 +70,7 @@ public class deck {
     }
 
     public void printDeck() {
-        System.out.println(deckOfCards);
+        System.out.print(deckOfCards);
+        System.out.println(" ---- Deck size: " + deckOfCards.size());
     }
 }

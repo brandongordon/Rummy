@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 public class rummyCard{
     private String suit;
@@ -24,7 +24,7 @@ public class rummyCard{
     }
 
     public String toString(){
-        return "\n" + rank + " of " + suit + " (" + value + ")";
+        return rank + " of " + suit + " (" + value + ")";
     }
 
     private int calculateValue(String irank){ //Give the cards their associated value
@@ -73,7 +73,7 @@ public class rummyCard{
 
         //If Rank = Joker then set a unique value per game
         if (irank == "Joker"){
-            value = 100;
+            value = 100; //In this instance, Joker should never be used so im setting the value to be something crazy.
         }
         return value;
     }
