@@ -3,6 +3,7 @@ import java.util.Collections;
 
 public class deck {
     private ArrayList<rummyCard> deckOfCards = new ArrayList<rummyCard>(); //This is the "Deck" - The Array of Card elements
+    public ArrayList<rummyCard> discarded = new ArrayList<rummyCard>(); //This is the "Discard" pile with discarded(0) being tradable (check this index)
 
     public deck(int numJokers) {
         generateDeck(numJokers);
@@ -69,8 +70,16 @@ public class deck {
         //System.out.println("Added the " + rank + " of " + suit);
     }
 
+    public rummyCard discardFromDeck(){
+        rummyCard theCard = deckOfCards.get(0); 
+        discarded.add(theCard);
+        System.out.println("Discarded " + theCard);
+        deckOfCards.remove(0);
+        return theCard; 
+    }
+
     public void printDeck() {
-        System.out.print(deckOfCards);
-        System.out.println(" ---- Deck size: " + deckOfCards.size());
+        System.out.print("\n" + deckOfCards);
+        System.out.println(" ---- Deck size: " + deckOfCards.size() + "\n");
     }
 }

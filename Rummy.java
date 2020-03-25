@@ -33,20 +33,18 @@ public class Rummy {
         cardDeck.printDeck();
 
         ArrayList<player> party = new ArrayList<player>(); //Get an arrayList going to store the players in, allows us to rotate between them etc
-        System.out.println("\n[!] Starting game with " + howManyPlayers + " players.");
+        System.out.println("[!] Starting game with " + howManyPlayers + " players.");
         for (int i = 1; i <= howManyPlayers; i++){ //create x number of player objects and assign them a name and some cards
-            String playerName = "player" + i;
+            String playerName = "Player" + i;
             ArrayList<rummyCard> theirDeck = new ArrayList<rummyCard>();
+            System.out.println("\n[!] Dealing to: " + playerName + " ------");
             theirDeck = cardDeck.deal(7);
             player currPlayer = new player(playerName, theirDeck);
-            party.add(currPlayer);
-            System.out.println("\t[!] Generated " + playerName);
-        
+            party.add(currPlayer);     
         }
-        
+
+        rummyCard initialFlip = cardDeck.discardFromDeck(); //The first card to be flipped over
         cardDeck.printDeck();
-        //print each players hand
-        //generate a new object "discarded" with .getTop()
     }
 }
 
