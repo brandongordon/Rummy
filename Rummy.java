@@ -15,9 +15,9 @@ public class Rummy {
         boolean retry = true;
         while (retry){
             try{
-                System.out.print("\n\tHow many players? >");
+                System.out.print("\n\tHow many AI opponents? > ");
                 players = scan.next();
-                numOfPlayers = Integer.parseInt(players);
+                numOfPlayers = (Integer.parseInt(players)+1); //the game sets up decks for the AI + you (1)
                 retry = false;
                 game.startGame(numOfPlayers);
             }
@@ -34,8 +34,15 @@ public class Rummy {
 
         ArrayList<player> party = new ArrayList<player>(); //Get an arrayList going to store the players in, allows us to rotate between them etc
         System.out.println("[!] Starting game with " + howManyPlayers + " players.");
-        for (int i = 1; i <= howManyPlayers; i++){ //create x number of player objects and assign them a name and some cards
-            String playerName = "Player" + i;
+
+        ArrayList<rummyCard> playerDeck = new ArrayList<rummyCard>();
+        System.out.println("\n[!] Dealing to: Player ------");
+        playerDeck = cardDeck.deal(7);
+        player realPlayer = new player("Player", playerDeck);
+        party.add(realPlayer);
+
+        for (int i = 1; i < howManyPlayers; i++){ //create x number of player objects and assign them a name and some cards FOR THE AI
+            String playerName = "AI-OPPONENT-" + i;
             ArrayList<rummyCard> theirDeck = new ArrayList<rummyCard>();
             System.out.println("\n[!] Dealing to: " + playerName + " ------");
             theirDeck = cardDeck.deal(7);
@@ -45,6 +52,7 @@ public class Rummy {
 
         rummyCard initialFlip = cardDeck.discardFromDeck(); //The first card to be flipped over
         cardDeck.printDeck();
+        cardDeck.printDiscard();
     }
 }
 

@@ -49,7 +49,7 @@ public class deck {
         if (dealNumber <= deckLeft){
             for (int i = 0; i <= dealNumber; i++){
                 dealtCards.add(deckOfCards.get(0)); //get the first element of the deck and put it into dealtCards. We always want the first element as we are deleting this element from the deck as soon as we deal it.
-                System.out.println("Dealt " + dealtCards.get(i).toString());
+                System.out.println("Dealt " + dealtCards.get(i));
                 deckOfCards.remove(0); //Remove the first element of the deck.
                 deckLeft = deckLeft -1;
             }
@@ -73,13 +73,16 @@ public class deck {
     public rummyCard discardFromDeck(){
         rummyCard theCard = deckOfCards.get(0); 
         discarded.add(theCard);
-        System.out.println("Discarded " + theCard);
+        System.out.println("\n[!] Discarded " + theCard + " from the deck");
         deckOfCards.remove(0);
         return theCard; 
     }
 
     public void printDeck() {
-        System.out.print("\n" + deckOfCards);
-        System.out.println(" ---- Deck size: " + deckOfCards.size() + "\n");
+        System.out.println("\nCurrent Deck consists of " + deckOfCards.size() + " cards: " + deckOfCards);
+    }
+
+    public void printDiscard(){
+        System.out.println("\n Current Discard Pile consists of " + discarded.size() + " cards: " + discarded);
     }
 }
