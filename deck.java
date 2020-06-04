@@ -83,6 +83,11 @@ public class deck {
     }
 
     public void printDiscard(){
-        System.out.println("\n Current Discard Pile consists of " + discarded.size() + " cards: " + discarded);
+        System.out.println("\nCurrent Discard Pile consists of " + discarded.size() + " cards: " + discarded);
     }
+
+    public int getSize(){
+        return deckOfCards.size();
+    }
+
 }
