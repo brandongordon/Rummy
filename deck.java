@@ -71,11 +71,22 @@ public class deck {
     }
 
     public rummyCard discardFromDeck(){
+        if (deckOfCards.size() == 0){
+            reviveDeck();
+        }
         rummyCard theCard = deckOfCards.get(0); 
         discarded.add(theCard);
         System.out.println("\n[!] Discarded " + theCard + " from the deck");
         deckOfCards.remove(0);
         return theCard; 
+    }
+
+    private void reviveDeck(){
+        deckOfCards = new ArrayList<rummyCard>(discarded);
+        Collections.shuffle(deckOfCards);
+        discarded.clear();
+        System.out.println("\n[!] DECK HAS BEEN REVIVED");
+        System.out.println("\nCurrent Deck consists of " + deckOfCards.size() + " cards: " + deckOfCards);
     }
 
     public void printDeck() {

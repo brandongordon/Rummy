@@ -56,11 +56,12 @@ public class Rummy {
 
 
     public void playGame(){
+        boolean gameOver = false;
         rummyCard initialDiscard = cardDeck.discardFromDeck(); //The first card to be flipped over
         cardDeck.printDeck();
         cardDeck.printDiscard();
 
-        while(cardDeck.getSize() > 0){
+        while(gameOver == false){
             rummyCard currentDiscard = cardDeck.discardFromDeck(); 
             cardDeck.printDeck();
             cardDeck.printDiscard();
