@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Rummy {
@@ -56,19 +57,28 @@ public class Rummy {
 
 
     public void playGame(){
-        rummyCard initialDiscard = cardDeck.discardFromDeck(); //The first card to be flipped over
+        rummyCard currentDiscard = cardDeck.discardFromDeck(); //The first card to be flipped over
         cardDeck.printDeck();
         cardDeck.printDiscard();
         boolean gameOver = false;
 
-        while(gameOver == false){
+        while(gameOver == false){ //This is the game loop. Will continue looping until the game ends.
             for (player currPlayer : party) {
-                if (currPlayer.isAI == true){
+                if (currPlayer.isAI == true){ //ACTIONS PERFORMED PER TURN BY THE AI
                     System.out.println("\n\t[!] do AI things");
-                    rummyCard currentDiscard = cardDeck.discardFromDeck(); 
-                } else{
+                    //For now, until an AI is made, each AI turn will consist of withdrawing from deck and discarding a random card from their deck
+                    currPlayer.acceptCard(cardDeck.withdrawFromDeck());
+                    Random rand = new Random();
+                    currentDiscard = currPlayer.discardCard(rand.nextInt(7)); //Randomly discard one of the cards in their hand. Index is 8 elements (7 dealt + 1 withdrawn)
+                    cardDeck.acceptDiscardedCard(currentDiscard);
+
+                } else{ //ACTIONS PERFORMED PER TURN BY THE HUMAN
                     System.out.println("\n\t[!] do human things");
-                    rummyCard currentDiscard = cardDeck.discardFromDeck(); 
+                    System.out.println("\n[!] The card showing on discard pile is: " + currentDiscard);
+                    currPlayer.acceptCard(cardDeck.withdrawFromDiscarded());
+                    Random rand = new Random();
+                    currentDiscard = currPlayer.discardCard(rand.nextInt(7)); //Randomly discard one of the cards in their hand. Index is 8 elements (7 dealt + 1 withdrawn)
+                    cardDeck.acceptDiscardedCard(currentDiscard);
                 }
                 
             cardDeck.printDeck();

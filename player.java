@@ -13,6 +13,7 @@ public class player {
 
     public void acceptCard(rummyCard drawn){
         hand.add(drawn); //Take the card into your hand from which ever source
+        System.out.println("\n[!] " + playerName +" withdrew " + drawn);
     }
 
     public rummyCard discardCard(int index){

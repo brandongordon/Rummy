@@ -70,7 +70,19 @@ public class deck {
         //System.out.println("Added the " + rank + " of " + suit);
     }
 
-    public rummyCard discardFromDeck(){
+    public void printDeck() {
+        System.out.println("\nCurrent Deck consists of " + deckOfCards.size() + " cards: " + deckOfCards);
+    }
+
+    public void printDiscard(){
+        System.out.println("\nCurrent Discard Pile consists of " + discarded.size() + " cards: " + discarded);
+    }
+
+    public int getSize(){
+        return deckOfCards.size();
+    }
+
+    public rummyCard discardFromDeck(){ //Used at the start of the game to discard the first card off the deck
         if (deckOfCards.size() == 0){
             reviveDeck();
         }
@@ -89,16 +101,35 @@ public class deck {
         System.out.println("\nCurrent Deck consists of " + deckOfCards.size() + " cards: " + deckOfCards);
     }
 
-    public void printDeck() {
-        System.out.println("\nCurrent Deck consists of " + deckOfCards.size() + " cards: " + deckOfCards);
+    public rummyCard withdrawFromDeck(){
+        if (deckOfCards.size() == 0){
+            reviveDeck();
+        }
+        rummyCard theCard = deckOfCards.get(0);
+        deckOfCards.remove(0);
+        System.out.println("\n[!] A card was drawn from the DECK pile");
+        return theCard;
     }
 
-    public void printDiscard(){
-        System.out.println("\nCurrent Discard Pile consists of " + discarded.size() + " cards: " + discarded);
+    public rummyCard withdrawFromDiscarded(){
+        if (discarded.size() == 0){
+            System.out.println("\n[!] Discarded pile is empty. Withdrawing from deck instead");
+            rummyCard theCard = deckOfCards.get(0);
+            deckOfCards.remove(0);
+            return theCard;
+        }
+        else{
+            rummyCard theCard = discarded.get(discarded.size() - 1);
+            discarded.remove(discarded.size() - 1);
+            System.out.println("\n[!] A card was drawn from the DISCARD pile");
+            return theCard;
+        }
     }
 
-    public int getSize(){
-        return deckOfCards.size();
+    public void acceptDiscardedCard(rummyCard discardedCard){
+        discarded.add(discardedCard);
+        System.out.println("\n[!] " + discardedCard + " was discarded");
     }
 
 }
+
