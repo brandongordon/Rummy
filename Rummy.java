@@ -56,15 +56,27 @@ public class Rummy {
 
 
     public void playGame(){
-        boolean gameOver = false;
         rummyCard initialDiscard = cardDeck.discardFromDeck(); //The first card to be flipped over
         cardDeck.printDeck();
         cardDeck.printDiscard();
+        boolean gameOver = false;
 
         while(gameOver == false){
-            rummyCard currentDiscard = cardDeck.discardFromDeck(); 
+            for (player currPlayer : party) {
+                if (currPlayer.isAI == true){
+                    System.out.println("\n\t[!] do AI things");
+                    rummyCard currentDiscard = cardDeck.discardFromDeck(); 
+                } else{
+                    System.out.println("\n\t[!] do human things");
+                    rummyCard currentDiscard = cardDeck.discardFromDeck(); 
+                }
+                
             cardDeck.printDeck();
             cardDeck.printDiscard();
+            }
+
+
+
         }
     }
 }
