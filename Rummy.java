@@ -38,7 +38,7 @@ public class Rummy {
         ArrayList<rummyCard> playerDeck = new ArrayList<rummyCard>();
         System.out.println("\n[!] Dealing to: Player ------");
         playerDeck = cardDeck.deal(7);
-        player realPlayer = new player("Player", playerDeck);
+        player realPlayer = new player("Player", playerDeck, false);
         party.add(realPlayer);
 
         for (int i = 1; i < howManyPlayers; i++){ //create x number of player objects and assign them a name and some cards FOR THE AI
@@ -46,14 +46,17 @@ public class Rummy {
             ArrayList<rummyCard> theirDeck = new ArrayList<rummyCard>();
             System.out.println("\n[!] Dealing to: " + playerName + " ------");
             theirDeck = cardDeck.deal(7);
-            player currPlayer = new player(playerName, theirDeck);
+            player currPlayer = new player(playerName, theirDeck, true);
             party.add(currPlayer);     
         }
 
         rummyCard initialFlip = cardDeck.discardFromDeck(); //The first card to be flipped over
         cardDeck.printDeck();
         cardDeck.printDiscard();
+
+        //playRound iterate through each of the players in the party and allows them to make a play
     }
+
 }
 
 
