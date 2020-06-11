@@ -107,7 +107,7 @@ public class deck {
         }
         rummyCard theCard = deckOfCards.get(0);
         deckOfCards.remove(0);
-        System.out.println("\n[!] A card was drawn from the DECK pile");
+        System.out.println("\n[!] "+ theCard + " was drawn from the DECK pile");
         return theCard;
     }
 
@@ -121,7 +121,7 @@ public class deck {
         else{
             rummyCard theCard = discarded.get(discarded.size() - 1);
             discarded.remove(discarded.size() - 1);
-            System.out.println("\n[!] A card was drawn from the DISCARD pile");
+            System.out.println("\n[!] "+ theCard + " was drawn from the DISCARD pile");
             return theCard;
         }
     }

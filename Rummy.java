@@ -81,7 +81,7 @@ public class Rummy {
 
                 } else{ //ACTIONS PERFORMED PER TURN BY THE HUMAN
                     
-                    System.out.println("\n\t\t[-=-=-=-=-=-=(HUMAN, IT IS YOUR TURN)=-=-=-=-=-=-]");
+                    System.out.println("\n\t[-=-=-=-=-=-=(HUMAN, IT IS YOUR TURN)=-=-=-=-=-=-]");
                     System.out.println("\tYour hand currently consists of: " + currPlayer.hand);
                     System.out.println("\tThe card showing on discard pile is: " + currentDiscard);
                     int menuChoice = getInt(playScan, "\n\tDo you wish to:" +
@@ -89,24 +89,14 @@ public class Rummy {
                     "\n\t\t[2] Withdraw from the DECK pile?" +
                     "\n\t\t[3] Withdraw from the DISCARD pile?" +
                     "\n\t\t[4] Declare your hand as WINNER \n\t> ", "\t[!] That's not a valid option. Try again.", 1, 4);
-                     
-                    String rawDiscardChoice;
-                    int discardChoice = 0;
                     if (menuChoice == 1){ //Reorder your HAND
 
                     }
                     else if (menuChoice == 2){ //Withdraw from the DECK pile
                         currPlayer.acceptCard(cardDeck.withdrawFromDeck());
-                        System.out.println("\n\t\tNow, which card do you want to DISCARD?\n\t> ");
-                        Random rand = new Random();
-                        currentDiscard = currPlayer.discardCard(rand.nextInt(7)); //Randomly discard one of the cards in their hand. Index is 8 elements (7 dealt + 1 withdrawn)
-                        cardDeck.acceptDiscardedCard(currentDiscard);  
                     }
                     else if (menuChoice == 3){ //Withdraw from the DISCARD pile
                         currPlayer.acceptCard(cardDeck.withdrawFromDiscarded());
-                        Random rand = new Random();
-                        currentDiscard = currPlayer.discardCard(rand.nextInt(7)); //Randomly discard one of the cards in their hand. Index is 8 elements (7 dealt + 1 withdrawn)
-                        cardDeck.acceptDiscardedCard(currentDiscard);
                     }
                     else if (menuChoice == 4){ //Declare your hand as WINNER
 
@@ -114,7 +104,17 @@ public class Rummy {
                     else {
                         System.out.println("\t[!] Something went wrong.");
                     }
-                    System.out.println("\t\t[-=-=-=-=-=-=(YOUR TURN IS NOW OVER)=-=-=-=-=-=-]");
+                    
+                    System.out.println("\n\tNow you must DISCARD a card. Which card will it be?");
+                    int handCounter =0;
+                    for (rummyCard currCard : currPlayer.hand){
+                        handCounter ++;
+                        System.out.print("\n\t[" + handCounter + "] " + currCard);
+                    }
+                    int discardChoice = (getInt(playScan, "\n\t> ", "\t[!] That's not a valid option. Try again.", 1, 8)-1); //Negate one for index of hand array starting at 0
+                    currentDiscard = currPlayer.discardCard(discardChoice); //Discard the card of that index value in their hand. Index is 8 elements (7 dealt + 1 withdrawn)
+                    cardDeck.acceptDiscardedCard(currentDiscard);
+                    System.out.println("\n\t[-=-=-=-=-=-=(YOUR TURN IS NOW OVER)=-=-=-=-=-=-]");
                 }
                 
             cardDeck.printDeck();
