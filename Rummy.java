@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Rummy {
     deck cardDeck = new deck(0); //Generate a new deck of cards with 0 jokers - a new deck is automatically shuffled
     ArrayList<player> party = new ArrayList<player>(); //Get an arrayList going to store the players in, allows us to rotate between them etc
+    public static boolean debug = true;
 
 
     public int getInt(Scanner scan, String question, String incorrect, int minRange, int maxRange){
@@ -33,16 +34,27 @@ public class Rummy {
         System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-(*)-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
         
         Scanner mainScan = new Scanner(System.in);
+
+        System.out.print("\tEnable debug? [T or F] > "); //Set the debug variable
+        String debugChoice = mainScan.next().toUpperCase();
+        if (debugChoice.contains("F")){
+            debug = false;
+            System.out.println ("\n[!] Debug statements disabled.");
+        }
+        else{
+            System.out.println ("\n[!] Debug statements enabled.");
+        }
+
         int numOfPlayers = game.getInt(mainScan, "\n\tHow many AI opponents? > ","\t[!] That's not a number. Try again.", 1, 9);
-        game.startGame(numOfPlayers);
+        game.startGame((numOfPlayers+1));
         game.playGame(); //iterate through each of the players in the party and allows them to make a play. Performed inside a loop that ends when the game is over. Must accomodate deck ending
         mainScan.close();
     }
 
     public void startGame(int howManyPlayers){
-        cardDeck.printDeck();
+        if (debug) {cardDeck.printDeck();};
 
-        System.out.println("[!] Starting game with " + howManyPlayers + " players.");
+        System.out.println("\n[!] Starting game with " + (howManyPlayers) + " players.");
 
         ArrayList<rummyCard> playerDeck = new ArrayList<rummyCard>();
         System.out.println("\n[!] Dealing to: Player ------");
@@ -64,15 +76,15 @@ public class Rummy {
 
     public void playGame(){
         rummyCard currentDiscard = cardDeck.discardFromDeck(); //The first card to be flipped over
-        cardDeck.printDeck();
-        cardDeck.printDiscard();
+        if (debug) {cardDeck.printDeck();};
+        if (debug) {cardDeck.printDiscard();};
         boolean gameOver = false;
 
         Scanner playScan = new Scanner(System.in);
         while(gameOver == false){ //This is the game loop. Will continue looping until the game ends.
             for (player currPlayer : party) {
                 if (currPlayer.isAI == true){ //ACTIONS PERFORMED PER TURN BY THE AI
-                    System.out.println("\n\t[!] do AI things");
+                    if (debug) {System.out.println("\n\t[!] do AI things");};
                     //For now, until an AI is made, each AI turn will consist of withdrawing from deck and discarding a random card from their hand
                     currPlayer.acceptCard(cardDeck.withdrawFromDeck());
                     Random rand = new Random();
@@ -83,12 +95,12 @@ public class Rummy {
                     
                     System.out.println("\n\t[-=-=-=-=-=-=(HUMAN, IT IS YOUR TURN)=-=-=-=-=-=-]");
                     System.out.println("\tYour hand currently consists of: " + currPlayer.hand);
-                    System.out.println("\tThe card showing on discard pile is: " + currentDiscard);
+                    System.out.println("\tThe card showing on the discard pile is: " + currentDiscard);
                     int menuChoice = getInt(playScan, "\n\tDo you wish to:" +
-                    "\n\t\t[1] Re-order your HAND" +
+                    "\n\t\t[1] Re-order your HAND?" +
                     "\n\t\t[2] Withdraw from the DECK pile?" +
-                    "\n\t\t[3] Withdraw from the DISCARD pile?" +
-                    "\n\t\t[4] Declare your hand as WINNER \n\t> ", "\t[!] That's not a valid option. Try again.", 1, 4);
+                    "\n\t\t[3] Withdraw the " + currentDiscard + " from the DISCARD pile?" +
+                    "\n\t\t[4] Declare your hand as WINNER! \n\t> ", "\t[!] That's not a valid option. Try again.", 1, 4);
                     if (menuChoice == 1){ //Reorder your HAND
 
                     }
@@ -117,8 +129,8 @@ public class Rummy {
                     System.out.println("\n\t[-=-=-=-=-=-=(YOUR TURN IS NOW OVER)=-=-=-=-=-=-]");
                 }
                 
-            cardDeck.printDeck();
-            cardDeck.printDiscard();
+            if (debug) {cardDeck.printDeck();};
+            if (debug) {cardDeck.printDiscard();};
             }
 
 

@@ -13,12 +13,14 @@ public class player {
 
     public void acceptCard(rummyCard drawn){
         hand.add(drawn); //Take the card into your hand from which ever source
-        System.out.println("\n[!] " + playerName +" withdrew " + drawn);
+        if (Rummy.debug) {System.out.println("\n\t[!] " + playerName +" withdrew " + drawn);} //IF debug, print this statement regardless
+        else if (isAI == false) {System.out.println("\n\t[!] " + playerName +" withdrew " + drawn);}; //IF NOT debug, and its a player, print this statement.
     }
 
     public rummyCard discardCard(int index){
         rummyCard discarded = hand.get(index); 
         hand.remove(index); //Discard a card from your hand
+        System.out.println("\n\t[!] " + playerName +" discarded " + discarded);
         return discarded;
     }
 

@@ -49,7 +49,7 @@ public class deck {
         if (dealNumber <= deckLeft){
             for (int i = 0; i <= dealNumber; i++){
                 dealtCards.add(deckOfCards.get(0)); //get the first element of the deck and put it into dealtCards. We always want the first element as we are deleting this element from the deck as soon as we deal it.
-                System.out.println("Dealt " + dealtCards.get(i));
+                if (Rummy.debug) {System.out.println("Dealt " + dealtCards.get(i));};
                 deckOfCards.remove(0); //Remove the first element of the deck.
                 deckLeft = deckLeft -1;
             }
@@ -98,7 +98,7 @@ public class deck {
         Collections.shuffle(deckOfCards);
         discarded.clear();
         System.out.println("\n[!] DECK HAS BEEN REVIVED");
-        System.out.println("\nCurrent Deck consists of " + deckOfCards.size() + " cards: " + deckOfCards);
+        if (Rummy.debug) {System.out.println("\nCurrent Deck consists of " + deckOfCards.size() + " cards: " + deckOfCards);};
     }
 
     public rummyCard withdrawFromDeck(){
@@ -107,7 +107,7 @@ public class deck {
         }
         rummyCard theCard = deckOfCards.get(0);
         deckOfCards.remove(0);
-        System.out.println("\n[!] "+ theCard + " was drawn from the DECK pile");
+        if (Rummy.debug) {System.out.println("\n[!] "+ theCard + " was drawn from the DECK pile");};
         return theCard;
     }
 
@@ -121,14 +121,14 @@ public class deck {
         else{
             rummyCard theCard = discarded.get(discarded.size() - 1);
             discarded.remove(discarded.size() - 1);
-            System.out.println("\n[!] "+ theCard + " was drawn from the DISCARD pile");
+            if (Rummy.debug) {System.out.println("\n[!] "+ theCard + " was drawn from the DISCARD pile");};
             return theCard;
         }
     }
 
     public void acceptDiscardedCard(rummyCard discardedCard){
         discarded.add(discardedCard);
-        System.out.println("\n[!] " + discardedCard + " was discarded");
+        if(Rummy.debug){System.out.println("\n[!] " + discardedCard + " was discarded");};
     }
 
 }
