@@ -61,24 +61,61 @@ public class Rummy {
         cardDeck.printDeck();
         cardDeck.printDiscard();
         boolean gameOver = false;
+        Scanner scan = new Scanner(System.in);
 
         while(gameOver == false){ //This is the game loop. Will continue looping until the game ends.
             for (player currPlayer : party) {
                 if (currPlayer.isAI == true){ //ACTIONS PERFORMED PER TURN BY THE AI
                     System.out.println("\n\t[!] do AI things");
-                    //For now, until an AI is made, each AI turn will consist of withdrawing from deck and discarding a random card from their deck
+                    //For now, until an AI is made, each AI turn will consist of withdrawing from deck and discarding a random card from their hand
                     currPlayer.acceptCard(cardDeck.withdrawFromDeck());
                     Random rand = new Random();
                     currentDiscard = currPlayer.discardCard(rand.nextInt(7)); //Randomly discard one of the cards in their hand. Index is 8 elements (7 dealt + 1 withdrawn)
                     cardDeck.acceptDiscardedCard(currentDiscard);
 
                 } else{ //ACTIONS PERFORMED PER TURN BY THE HUMAN
-                    System.out.println("\n\t[!] do human things");
-                    System.out.println("\n[!] The card showing on discard pile is: " + currentDiscard);
-                    currPlayer.acceptCard(cardDeck.withdrawFromDiscarded());
-                    Random rand = new Random();
-                    currentDiscard = currPlayer.discardCard(rand.nextInt(7)); //Randomly discard one of the cards in their hand. Index is 8 elements (7 dealt + 1 withdrawn)
-                    cardDeck.acceptDiscardedCard(currentDiscard);
+                    String rawMenuChoice; 
+                    int menuChoice = 0;
+                    System.out.println("\n\t\t[-=-=-=-=-=-=(HUMAN, IT IS YOUR TURN)=-=-=-=-=-=-]");
+                    System.out.println("\tYour hand currently consists of: " + currPlayer.hand);
+                    System.out.println("\tThe card showing on discard pile is: " + currentDiscard);
+                    
+                    
+                    boolean retry = true;
+                    while (retry){
+                        try{ //Ask the player what they want to do for their turn, and make sure it's a valid input
+                            System.out.print("\n\tDo you wish to:" +
+                                "\n\t\t[1] Withdraw from the DECK pile?" +
+                                "\n\t\t[2] Withdraw from the DISCARD pile?" +
+                                "\n\t\t[3] Declare your hand as WINNER \n\t> ");
+                            rawMenuChoice = scan.next();
+                            menuChoice = Integer.parseInt(rawMenuChoice);
+                            if (menuChoice > 0 && menuChoice <= 3) {retry = false;} else {System.out.println("\t[!] That's not a valid option. Try again.");}
+                        }
+                        catch (NumberFormatException e){
+                            System.out.println("\t[!] That's not a valid option. Try again.");
+                        }
+                    }
+
+                    if (menuChoice == 1){ //Withdraw from the DECK pile
+                        currPlayer.acceptCard(cardDeck.withdrawFromDeck());
+                        Random rand = new Random();
+                        currentDiscard = currPlayer.discardCard(rand.nextInt(7)); //Randomly discard one of the cards in their hand. Index is 8 elements (7 dealt + 1 withdrawn)
+                        cardDeck.acceptDiscardedCard(currentDiscard);  
+                    }
+                    else if (menuChoice == 2){ //Withdraw from the DISCARD pile
+                        currPlayer.acceptCard(cardDeck.withdrawFromDiscarded());
+                        Random rand = new Random();
+                        currentDiscard = currPlayer.discardCard(rand.nextInt(7)); //Randomly discard one of the cards in their hand. Index is 8 elements (7 dealt + 1 withdrawn)
+                        cardDeck.acceptDiscardedCard(currentDiscard);
+                    }
+                    else if (menuChoice == 3){ //Declare your hand as WINNER
+
+                    }
+                    else {
+                        System.out.println("Something went wrong.");
+                    }
+                    System.out.println("\t\t[-=-=-=-=-=-=(YOUR TURN IS NOW OVER)=-=-=-=-=-=-]");
                 }
                 
             cardDeck.printDeck();
@@ -88,6 +125,7 @@ public class Rummy {
 
 
         }
+        scan.close();
     }
 }
 
