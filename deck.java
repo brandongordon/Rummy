@@ -12,7 +12,7 @@ public class deck {
 
     public void generateDeck(int numOfJokers) { // Step through all the suits and assign each one the full set of ranks
         String[] suits = { "Diamonds", "Hearts", "Clubs", "Spades" };
-        String[] ranks = { "Ace", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King" };
+        String[] ranks = { "Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King" };
 
         if (numOfJokers == 0) {
             for (String suit : suits) {

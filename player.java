@@ -24,7 +24,9 @@ public class player {
         return discarded;
     }
 
+    public void orderHand(){
 
+    }
 
 
 }
