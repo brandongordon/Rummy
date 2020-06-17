@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class player {
     public String playerName; 
@@ -25,7 +26,7 @@ public class player {
     }
 
     public void orderHand(){
-
+        Collections.sort(hand, (left, right) -> left.order - right.order);
     }
 
 

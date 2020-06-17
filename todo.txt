@@ -1,0 +1,3 @@
++ Make method under player class to print deck. Make it nice like the discard question.
+
++ Format output so its easier to digest what is happening, especially during AI rounds. Maybe put a timer on so its not instant?
